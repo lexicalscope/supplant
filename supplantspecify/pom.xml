@@ -33,6 +33,10 @@
 						<goals>
 							<goal>antlr4</goal>
 						</goals>
+						<configuration>
+							<visitor>true</visitor>
+							<atn>false</atn>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -58,7 +62,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<execute></execute>
+										<execute><runOnIncremental>false</runOnIncremental></execute>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -69,8 +73,25 @@
 		</pluginManagement>
 	</build>
 	<dependencies>
-		<!-- <dependency> <groupId>org.antlr</groupId> <artifactId>antlr4-maven-plugin</artifactId> 
-			<version>4.0</version> <type>maven-plugin</type> </dependency> -->
+		<!--
+		 <dependency> <groupId>org.antlr</groupId> <artifactId>antlr4-maven-plugin</artifactId> 
+			<version>4.0</version> <type>maven-plugin</type> </dependency> 
+			-->
+		<dependency>
+			<groupId>com.lexicalscope.fluent-collections</groupId>
+			<artifactId>fluent-collections</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>14.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-all</artifactId>

@@ -4,8 +4,8 @@ specification : congruence '{' assertion '}';
 
 congruence : Identifier;
 assertion 
-  : tuplematch ('then' actions)?
-  | 'unaffected'
+  : tuplematch ('then' actions)? # MatchAssertion
+  | 'unaffected' # Unaffected
   ;
 tuplematch : ( match ('=>' match)* );
 match : '*';
@@ -30,3 +30,4 @@ IdDigit
 WS
 	: [ \r\t\u000C\n]+ -> channel(HIDDEN)
   	;
+  	
