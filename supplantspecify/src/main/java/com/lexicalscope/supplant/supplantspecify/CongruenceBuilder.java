@@ -4,6 +4,7 @@ import com.lexicalscope.supplant.supplantspecify.specification.Congruence;
 
 public class CongruenceBuilder implements SpecificationElementBuilder<Congruence>  {
    private final String name;
+   private SnapshotMatchBuilder snapshotMatch;
 
    public CongruenceBuilder(final String name) {
       this.name = name;
@@ -15,6 +16,11 @@ public class CongruenceBuilder implements SpecificationElementBuilder<Congruence
 
    @Override
    public Congruence build() {
-      return new Congruence(name);
+      return new Congruence(name, snapshotMatch != null ? snapshotMatch.build() : null);
+   }
+
+   public CongruenceBuilder when(final SnapshotMatchBuilder snapshotMatch) {
+      this.snapshotMatch = snapshotMatch;
+      return this;
    }
 }

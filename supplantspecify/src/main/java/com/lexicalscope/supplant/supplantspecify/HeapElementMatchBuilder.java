@@ -1,12 +1,11 @@
 package com.lexicalscope.supplant.supplantspecify;
 
-import static com.lexicalscope.supplant.supplantspecify.AddressMatchBuilder.wildcardAddress;
 import static com.lexicalscope.supplant.supplantspecify.ObjectMatchBuilder.wildcardObjectMatch;
 
 import com.lexicalscope.supplant.supplantspecify.specification.HeapElementMatch;
 
 public class HeapElementMatchBuilder implements SpecificationElementBuilder<HeapElementMatch> {
-   private AddressMatchBuilder addressMatch = wildcardAddress();
+   private AddressMatchBuilder addressMatch = AddressMatchBuilder.wildcardAddress();
    private ObjectMatchBuilder objectMatch = wildcardObjectMatch();
 
    public static HeapElementMatchBuilder heapElementMatch(final AddressMatchBuilder addressMatch, final ObjectMatchBuilder objectMatch) {

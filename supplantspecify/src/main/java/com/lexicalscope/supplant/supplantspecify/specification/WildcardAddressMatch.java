@@ -1,5 +1,6 @@
 package com.lexicalscope.supplant.supplantspecify.specification;
 
-public class AddressMatch extends AbstractSpecificationElement {
+
+public class WildcardAddressMatch extends AddressMatch {
 
 }

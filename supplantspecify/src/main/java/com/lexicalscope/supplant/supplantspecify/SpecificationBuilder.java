@@ -2,7 +2,7 @@ package com.lexicalscope.supplant.supplantspecify;
 
 import com.lexicalscope.supplant.supplantspecify.specification.Specification;
 
-public class SpecificationBuilder {
+public class SpecificationBuilder implements SpecificationElementBuilder<Specification> {
    private CongruenceBuilder congruence;
    private AssertionBuilder assertion;
 
@@ -11,6 +11,7 @@ public class SpecificationBuilder {
       return this;
    }
 
+   @Override
    public Specification build() {
       return new Specification(
             congruence != null ? congruence.build() : null,

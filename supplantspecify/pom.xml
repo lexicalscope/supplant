@@ -36,9 +36,21 @@
 						<configuration>
 							<visitor>true</visitor>
 							<atn>false</atn>
+							<!-- 
+							 <options><language>Javaext</language></options>
+							 -->
 						</configuration>
 					</execution>
 				</executions>
+				<dependencies>
+				<!-- 
+				<dependency>
+					<groupId>com.lexicalscope.supplant</groupId>
+					<artifactId>antlrhelper</artifactId>
+					<version>0.0.1-SNAPSHOT</version>
+				</dependency>
+				 -->
+				</dependencies>
 			</plugin>
 		</plugins>
 		<pluginManagement>

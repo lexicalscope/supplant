@@ -2,7 +2,7 @@ grammar SupplantSpecify;
 
 specification : congruence '{' assertion '}';
 
-congruence : Identifier;
+congruence : Identifier ('(' snapshotMatch ')' )?;
 
 assertion 
   : tupleMatch ('then' tupleTransform)? # TupleAssertion
@@ -11,24 +11,27 @@ assertion
   
 tupleMatch : ( snapshotMatch ('=>' snapshotMatch)* );
 
-snapshotMatch : location? stackMatch? heapMatch;
+snapshotMatch : location? stackMatch? heapMatch?;
 
 location : '@' Identifier;
 
-stackMatch : '<' '>';
+stackMatch : '<' variableMatch '->' objectMatch '>';
 
 heapMatch : '[' (heapElementMatch (',' heapElementMatch)*)? ']';
 
 heapElementMatch : addressMatch ('->' objectMatch)?;
 
 addressMatch 
-	: '*' binding? # wildcardAddressMatch
+	: '*' binding? # bindingAddressMatch
 	| Identifier # boundAddressMatch
+	| '<' Identifier '>' # stackAddressMatch
 	;
+
+variableMatch : Identifier;	
 	
 binding : ':' Identifier;
 
-objectMatch : 'object' Identifier;
+objectMatch : '{' Identifier '}';
       
 tupleTransform : (snapshotTransform (',' snapshotTransform)*)?;
 
