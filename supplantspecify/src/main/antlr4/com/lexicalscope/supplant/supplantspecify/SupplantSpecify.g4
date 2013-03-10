@@ -3,14 +3,38 @@ grammar SupplantSpecify;
 specification : congruence '{' assertion '}';
 
 congruence : Identifier;
+
 assertion 
-  : tuplematch ('then' actions)? # MatchAssertion
-  | 'unaffected' # Unaffected
+  : tupleMatch ('then' tupleTransform)? # TupleAssertion
+  | 'unaffected' # UnaffectedAssertion
   ;
-tuplematch : ( match ('=>' match)* );
-match : '*';
-actions : action;
-action : '-';
+  
+tupleMatch : ( snapshotMatch ('=>' snapshotMatch)* );
+
+snapshotMatch : location? stackMatch? heapMatch;
+
+location : '@' Identifier;
+
+stackMatch : '<' '>';
+
+heapMatch : '[' (heapElementMatch (',' heapElementMatch)*)? ']';
+
+heapElementMatch : addressMatch ('->' objectMatch)?;
+
+addressMatch 
+	: '*' binding? # wildcardAddressMatch
+	| Identifier # boundAddressMatch
+	;
+	
+binding : ':' Identifier;
+
+objectMatch : 'object' Identifier;
+      
+tupleTransform : (snapshotTransform (',' snapshotTransform)*)?;
+
+snapshotTransform : location heapTransform;
+
+heapTransform : '[' addressMatch '->' ']';
 
 Identifier
 	: Letter (Letter|IdDigit)*

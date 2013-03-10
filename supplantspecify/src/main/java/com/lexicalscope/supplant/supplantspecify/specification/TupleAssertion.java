@@ -1,13 +1,14 @@
 package com.lexicalscope.supplant.supplantspecify.specification;
 
-import com.lexicalscope.fluent.list.FluentList;
-import com.lexicalscope.supplant.supplantspecify.SnapshotMatcher;
+
 
 
 public class TupleAssertion extends Assertion {
-   private final FluentList<SnapshotMatcher> matchers;
+   private final TupleMatch tupleMatch;
+   private final TupleTransform tupleTransformBuilder;
 
-   public TupleAssertion(final FluentList<SnapshotMatcher> matchers) {
-      this.matchers = matchers;
+   public TupleAssertion(final TupleMatch tupleMatch, final TupleTransform tupleTransformBuilder) {
+      this.tupleMatch = tupleMatch;
+      this.tupleTransformBuilder = tupleTransformBuilder;
    }
 }

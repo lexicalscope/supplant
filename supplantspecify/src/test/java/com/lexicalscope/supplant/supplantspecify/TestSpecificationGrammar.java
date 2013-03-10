@@ -1,9 +1,15 @@
 package com.lexicalscope.supplant.supplantspecify;
 
-import static com.lexicalscope.supplant.supplantspecify.AssertionBuilder.unaffected;
+import static com.lexicalscope.supplant.supplantspecify.AddressMatchBuilder.*;
+import static com.lexicalscope.supplant.supplantspecify.AssertionBuilder.*;
+import static com.lexicalscope.supplant.supplantspecify.BindingBuilder.binding;
 import static com.lexicalscope.supplant.supplantspecify.CongruenceBuilder.withCongruence;
+import static com.lexicalscope.supplant.supplantspecify.HeapMatchBuilder.heapMatch;
+import static com.lexicalscope.supplant.supplantspecify.ObjectMatchBuilder.objectWithType;
+import static com.lexicalscope.supplant.supplantspecify.ObjectReplacementBuilder.noObject;
+import static com.lexicalscope.supplant.supplantspecify.SnapshotMatchBuilder.*;
+import static com.lexicalscope.supplant.supplantspecify.SnapshotTransformBuilder.snapshotTransform;
 import static com.lexicalscope.supplant.supplantspecify.SpecificationBuilder.specification;
-import static com.lexicalscope.supplant.supplantspecify.SnapshotMatchBuilder.wildcard;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -25,9 +31,13 @@ public class TestSpecificationGrammar {
 
    @Test
    public void testResultTransformedToNull() {
-      assertSpecification("result { * => @r [*:a->object Page] then @r [a->null]}",
+      assertSpecification("result { [*] => @r [*:a->object Page] then @r [a->]}",
             specification(withCongruence("result")).
-               withAssertion(AssertionBuilder.twoTuple(wildcard(), wildcard())));
+               withAssertion(
+                     twoTupleMatch(
+                           wildcard(),
+                           snapshotMatch().with(heapMatch().with(wildcardAddress(binding("a")), objectWithType("Page"))),
+                     snapshotTransform(matchBoundAddress("a"), noObject()))));
    }
 
 

@@ -1,24 +1,35 @@
 package com.lexicalscope.supplant.supplantspecify;
 
-import static com.lexicalscope.fluent.FluentDollar.$;
-import static com.lexicalscope.supplant.supplantspecify.ConverterBuild.buildAs;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.lexicalscope.supplant.supplantspecify.specification.Assertion;
 import com.lexicalscope.supplant.supplantspecify.specification.TupleAssertion;
 
+
 public class TupleAssertionBuilder extends AssertionBuilder {
-   private final List<SpecificationElementBuilder<SnapshotMatcher>> matchers = new ArrayList<>();
+   private TupleMatchBuilder tupleMatch;
+   private TupleTransformBuilder tupleTransform;
+
+   public static TupleAssertionBuilder tupleAssertion() {
+      return new TupleAssertionBuilder();
+   }
+
+   public TupleAssertionBuilder withTupleMatch(final TupleMatchBuilder tupleMatch) {
+      this.tupleMatch = tupleMatch;
+      return this;
+   }
 
    @Override
    public Assertion build() {
-      return new TupleAssertion($(matchers)._convert(buildAs(SnapshotMatcher.class)));
+      return new TupleAssertion(
+                  tupleMatch != null ? tupleMatch.build() : null,
+                  tupleTransform != null ? tupleTransform.build() : null);
    }
 
-   public TupleAssertionBuilder withMatcher(final SnapshotMatchBuilder snapshotMatcher) {
-      matchers.add(snapshotMatcher);
+   public static TupleAssertionBuilder tupleAssertion(final TupleMatchBuilder tupleMatch, final TupleTransformBuilder tupleTransform) {
+      return new TupleAssertionBuilder().withTupleMatch(tupleMatch).withTupleTransform(tupleTransform);
+   }
+
+   public TupleAssertionBuilder withTupleTransform(final TupleTransformBuilder tupleTransform) {
+      this.tupleTransform = tupleTransform;
       return this;
    }
 }
