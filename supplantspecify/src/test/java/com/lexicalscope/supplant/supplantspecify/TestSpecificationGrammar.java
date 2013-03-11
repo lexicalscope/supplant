@@ -25,12 +25,22 @@ public class TestSpecificationGrammar extends AbstractTestSpecification {
    @Test
    public void testProtocolResult() {
       parseSpecification(
-"protocol([<this>->{PageGeneration}]){[<x>->{PageRequest, uri=\"/poi\"}] => [*] => @r [<w>->{Page}:p] then @r.old [<w>->p{content=\"newcontent\"}]}");
+"protocol([<this>->{PageGeneration}]){(<meth->\"generate\">[<x>->{PageRequest, uri=\"/poi\"}] => _ => @r [<w>->{Page}:p]) then @r.old [<w>->p{content=\"newcontent\"}]}");
+
+/*
+    protocol([<this>->{PageGeneration}]){
+                <meth->"generate" >[<x>->{PageRequest, uri="/poi"}]
+          =>    [*]
+          => @r [<w>->{Page}:p]
+       then
+          @r.old [<w>->p{content="newcontent"}]
+    }
+ */
    }
 
    @Test
    public void testResultTransformedToNull() {
-      assertSpecification("result { [*] => @r [*:a->{Page}] then @r [a->]}",
+      assertSpecification("result {([*] => @r [*:a->{Page}]) then @r [a->]}",
             specification(withCongruence("result")).
                withAssertion(
                      twoTupleMatch(

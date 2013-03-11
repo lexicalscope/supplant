@@ -9,13 +9,16 @@ assertion
   | 'unaffected' # UnaffectedAssertion
   ;
   
-tupleMatch : ( snapshotMatch ('=>' snapshotMatch)* );
+tupleMatch 
+  : '(' tupleMatch ('=>' tupleMatch)* ')'
+  | snapshotMatch
+  | '_';
 
 snapshotMatch : location? stackMatch? heapMatch?;
 
 location : '@' Identifier ('.'('old'|'new'))?;
 
-stackMatch : '<' variableMatch '->' objectMatch '>';
+stackMatch : '<' variableMatch '->' (StringLiteral|objectMatch) '>';
 
 heapMatch : '[' (heapElementMatch (',' heapElementMatch)*)? ']';
 
