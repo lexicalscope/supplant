@@ -28,13 +28,14 @@ public class TestSpecificationGrammar extends AbstractTestSpecification {
 "protocol([<this>->{PageGeneration}]){(<meth->\"generate\">[<x>->{PageRequest, uri=\"/poi\"}] => _ => @r [<w>->{Page}:p]) then @r.old [<w>->p{content=\"newcontent\"}]}");
 
 /*
-    protocol([<this>->{PageGeneration}]){
-                <meth->"generate" >[<x>->{PageRequest, uri="/poi"}]
-          =>    [*]
+    protocol([<this>->{PageGeneration}])
+    {
+       (
+             <meth->"generate">[<x>->{PageRequest, uri="/poi"}]
+          => _
           => @r [<w>->{Page}:p]
-       then
-          @r.old [<w>->p{content="newcontent"}]
-    }
+       )
+       then @r.old [<w>->p{content="newcontent"}]}
  */
    }
 
