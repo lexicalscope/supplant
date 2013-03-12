@@ -18,30 +18,25 @@ public class TestSpecificationGrammar extends AbstractTestSpecification {
    @Test
    public void testRefactoring() {
       assertSpecification(
-            "result { unaffected }",
+            "result ( unaffected )",
             specification(withCongruence("result")).withAssertion(unaffected()));
    }
 
    @Test
    public void testProtocolResult() {
       parseSpecification(
-"protocol([<this>->{PageGeneration}]){(<meth->\"generate\">[<x>->{PageRequest, uri=\"/poi\"}] => _ => @r [<w>->{Page}:p]) then @r.old [<w>->p{content=\"newcontent\"}]}");
-
-/*
-    protocol([<this>->{PageGeneration}])
-    {
-       (
-             <meth->"generate">[<x>->{PageRequest, uri="/poi"}]
-          => _
-          => @r [<w>->{Page}:p]
-       )
-       then @r.old [<w>->p{content="newcontent"}]}
- */
+          "protocol([<this>->{PageGeneration}])" +
+          "( \n" +
+          "   <meth->\"generate\">[<x>->{PageRequest, uri=\"/poi\"}] \n" +
+          "  => _ \n" +
+          "  => @r [<w>->{Page}:p] \n" +
+          ") \n" +
+          "(@r.old [<w>->p{content=\"newcontent\"}])\n");
    }
 
    @Test
    public void testResultTransformedToNull() {
-      assertSpecification("result {([*] => @r [*:a->{Page}]) then @r [a->]}",
+      assertSpecification("result([*] => @r [*:a->{Page}])(@r [a->])",
             specification(withCongruence("result")).
                withAssertion(
                      twoTupleMatch(

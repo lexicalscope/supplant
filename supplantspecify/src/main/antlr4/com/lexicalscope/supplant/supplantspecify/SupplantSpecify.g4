@@ -1,12 +1,12 @@
 grammar SupplantSpecify;
 
-specification : congruence '{' assertion '}' EOF;
+specification : congruence assertion EOF;
 
-congruence : Identifier ('(' snapshotMatch ')' )?;
+congruence : Identifier ('(' snapshotMatch ')')?;
 
 assertion 
-  : tupleMatch ('then' tupleTransform)? # TupleAssertion
-  | 'unaffected' # UnaffectedAssertion
+  : tupleMatch ( tupleTransform )? # TupleAssertion
+  | '(' 'unaffected' ')' # UnaffectedAssertion
   ;
   
 tupleMatch 
@@ -40,7 +40,7 @@ fieldMatch : Identifier '=' fieldValue;
 
 fieldValue : StringLiteral; 
       
-tupleTransform : (snapshotTransform (',' snapshotTransform)*)?;
+tupleTransform : ('(' snapshotTransform (',' snapshotTransform)* ')')?;
 
 snapshotTransform : location heapTransform;
 
