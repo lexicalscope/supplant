@@ -1,1 +1,1 @@
-([this->{listener:null}, x->$message], @propagate €, [])
+(@call [this->{listener:null}, x->$message], @propagate €, [])

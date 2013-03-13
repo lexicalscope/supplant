@@ -1,1 +1,1 @@
-([this->{listener:$listener}, x->$message], @propagate (<meth->"notify"[this->$listener, x->$message], []), [])
+([this->{listener:$listener}, x->$message], @propagate (<meth->"notify">[this->$listener, x->$message], []), [])

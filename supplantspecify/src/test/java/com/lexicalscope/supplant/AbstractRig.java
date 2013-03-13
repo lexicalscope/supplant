@@ -8,13 +8,14 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import org.junit.Test;
 import org.junit.runners.Parameterized.Parameter;
 
 import ch.lambdaj.function.convert.Converter;
 
 import com.google.common.io.Files;
 
-public class AbstractRig {
+public abstract class AbstractRig {
    public static List<Object[]> findFiles(final String directory, final String extension) {
       return $.asList(new File(directory).listFiles(new FileFilter(){
          @Override
@@ -40,4 +41,11 @@ public class AbstractRig {
 
    @Parameter(1)
    public String content;
+
+   @Test public void testit() throws IOException {
+      System.out.println(file);
+      canParse();
+   }
+
+   public abstract void canParse() throws IOException;
 }

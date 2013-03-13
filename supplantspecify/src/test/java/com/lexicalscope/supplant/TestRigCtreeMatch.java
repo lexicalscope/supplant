@@ -11,10 +11,10 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class TestRigCtree extends AbstractRig {
+public class TestRigCtreeMatch extends AbstractRig {
    @Parameters(name = "{index}: specification({0})")
    public static List<Object[]> loadFiles() {
-      return findFiles("src/test/resources/com/lexicalscope/supplant/supplantctree", ".ctree");
+      return findFiles("src/test/resources/com/lexicalscope/supplant/supplantctree", ".ctreem");
    }
 
    @Override
@@ -22,9 +22,9 @@ public class TestRigCtree extends AbstractRig {
       parse(content).root();
    }
 
-   public static CtreeParser parse(final String example) {
-      final CtreeLexer lexer = new CtreeLexer(new ANTLRInputStream(example));
-      final CtreeParser parser = new CtreeParser(new CommonTokenStream(lexer));
+   public static CtreeMatchParser parse(final String example) {
+      final CtreeMatchLexer lexer = new CtreeMatchLexer(new ANTLRInputStream(example));
+      final CtreeMatchParser parser = new CtreeMatchParser(new CommonTokenStream(lexer));
       parser.addErrorListener(new ConsoleErrorListener());
       return parser;
    }
