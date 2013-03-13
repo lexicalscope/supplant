@@ -1,0 +1,7 @@
+result
+(
+	[*] => @r [*:a=={type=="Page"}]
+)
+(
+ 	@r [a=null]
+)

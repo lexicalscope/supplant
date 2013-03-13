@@ -1,0 +1,7 @@
+protocol([<this>=={type=="PageGeneration"}])
+(
+     <meth=="generate">[<x>.uri=="/poi"]
+  => _
+  => @r [*]
+)
+(@r.old [<w>.content="newcontent"])
