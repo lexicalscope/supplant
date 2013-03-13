@@ -2,12 +2,9 @@ grammar SupplantSpecify;
 
 specification : congruence assertion EOF;
 
-congruence : Identifier ('(' snapshotMatch ')')?;
+congruence : Identifier ( '(' snapshotMatch ')' )?;
 
-assertion 
-  : tupleMatch ( tupleTransform )? # TupleAssertion
-  | '(' 'unaffected' ')' # UnaffectedAssertion
-  ;
+assertion : tupleMatch ( tupleTransform ) | 'unaffected';
   
 tupleMatch 
   : '(' tupleMatch ('=>' tupleMatch)* ')'
@@ -15,38 +12,31 @@ tupleMatch
   | '_';
 
 snapshotMatch : location? stackMatch? heapMatch?;
-
-location : '@' Identifier ('.'('old'|'new'))?;
-
-stackMatch : '<' variableMatch '->' (StringLiteral|objectMatch) '>';
-
+stackMatch : '<' stackElementMatch (',' stackElementMatch)* '>';
 heapMatch : '[' (heapElementMatch (',' heapElementMatch)*)? ']';
 
-heapElementMatch : addressMatch ('->' objectMatch)?;
+stackElementMatch: stackVariableMatch valueMatch?; 
+heapElementMatch : heapAddressMatch binding? valueMatch?;
 
-addressMatch 
-	: '*' binding? # bindingAddressMatch
-	| Identifier # boundAddressMatch
-	| '<' Identifier '>' # stackAddressMatch
-	;
+stackVariableMatch : Identifier pathExpression;
+heapAddressMatch : ('*' | Identifier | '<' Identifier '>') pathExpression;
 
-variableMatch : Identifier;	
-	
-binding : ':' Identifier;
-
-objectMatch : '{' Identifier (',' fieldMatch (fieldMatch)*)? '}' binding?;
-
-fieldMatch : Identifier '=' fieldValue;
-
-fieldValue : StringLiteral; 
+objectMatch : '{' (fieldMatch ( ',' fieldMatch)*)? '}' binding?;
+fieldMatch : Identifier pathExpression valueMatch?;
+valueMatch: '==' (StringLiteral|objectMatch);
       
 tupleTransform : ('(' snapshotTransform (',' snapshotTransform)* ')')?;
 
 snapshotTransform : location heapTransform;
+heapTransform : '[' heapAddressMatch valueTransform? ']';
 
-heapTransform : '[' addressMatch '->' objectTransform? ']';
-objectTransform : Identifier? '{' (Identifier)? fieldTransform '}';
-fieldTransform : Identifier '=' StringLiteral;  
+objectTransform : Identifier? '{' fieldTransform (',' fieldTransform )* '}';
+fieldTransform : Identifier pathExpression valueTransform;  
+valueTransform: '=' (StringLiteral|objectTransform|'null');
+
+location : '@' Identifier ('.'('old'|'new'))?;
+pathExpression : ('.' Identifier)*;
+binding : ':' Identifier;
 
 // LEXER =====================================================
 
@@ -78,10 +68,24 @@ HexDigit : (Digit|'a'..'f'|'A'..'F') ;
 
 fragment
 Digit : '0'..'9' ;
-
+        
 Identifier
-	: Letter (Letter|IdDigit)*
+	: Letter IdentifierTail*
   	;
+
+fragment
+IdentifierTail : Letter|IdDigit;
+
+IdentifierMatch
+    : (Letter IdentifierWildMatch?)
+    | ( '*' IdentifierConcreteMatch?)
+	;
+
+fragment	
+IdentifierWildMatch : '*'? IdentifierConcreteMatch?;
+
+fragment    
+IdentifierConcreteMatch : (IdentifierTail IdentifierWildMatch?);
 
 fragment
 Letter 
