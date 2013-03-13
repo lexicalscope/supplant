@@ -66,15 +66,7 @@ UnicodeEscape
 fragment
 HexDigit : (Digit|'a'..'f'|'A'..'F') ;
 
-fragment
-Digit : '0'..'9' ;
-        
-Identifier
-	: Letter IdentifierTail*
-  	;
 
-fragment
-IdentifierTail : Letter|IdDigit;
 
 IdentifierMatch
     : (Letter IdentifierWildMatch?)
@@ -87,11 +79,22 @@ IdentifierWildMatch : '*'? IdentifierConcreteMatch?;
 fragment    
 IdentifierConcreteMatch : (IdentifierTail IdentifierWildMatch?);
 
+       
+Identifier
+	: Letter IdentifierTail*
+  	;
+
+fragment
+IdentifierTail : Letter|IdDigit;
+
 fragment
 Letter 
 	: 'A'..'Z'
 	| 'a'..'z'
 	; 
+
+fragment
+Digit : '0'..'9' ;
 	
 fragment
 IdDigit

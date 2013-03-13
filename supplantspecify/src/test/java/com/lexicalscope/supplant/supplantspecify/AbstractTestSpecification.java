@@ -1,8 +1,5 @@
 package com.lexicalscope.supplant.supplantspecify;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ConsoleErrorListener;
 
 public abstract class AbstractTestSpecification {
 //   public static void assertSpecification(final String string, final SpecificationBuilder matcher) {
@@ -32,14 +29,6 @@ public abstract class AbstractTestSpecification {
 //   public static SnapshotMatch parseSnapshotMath(final String example) {
 //      return walkTree(parse(example).snapshotMatch()).snapshotMatch();
 //   }
-
-   public static  SupplantSpecifyParser parse(final String example) {
-      final SupplantSpecifyLexer lexer = new SupplantSpecifyLexer(new ANTLRInputStream(example));
-      final SupplantSpecifyParser parser = new SupplantSpecifyParser(new CommonTokenStream(lexer));
-      parser.addErrorListener(new ConsoleErrorListener());
-//      parser.setErrorHandler(new BailErrorStrategy());
-      return parser;
-   }
 
 //   public static SpecificationBuildingListener walkTree(final ParseTree tree) {
 //      final SpecificationBuildingListener specificationBuildingListener = new SpecificationBuildingListener();
