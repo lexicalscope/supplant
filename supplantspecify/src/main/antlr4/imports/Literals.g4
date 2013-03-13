@@ -1,13 +1,15 @@
 lexer grammar Literals;
 
+Location : '@' IdentifierTail*;
+
 // --------------------- Address
 Address : Digit (Digit)*;
 Null : 'null';
 
 // --------------------- Identifier
-Identifier
-	: Letter IdentifierTail*
-  	;
+Identifier : Letter IdentifierTail*;
+  	
+SymIdentifier : '$' IdentifierTail*;
 
 fragment
 IdentifierTail : Letter|Digit;

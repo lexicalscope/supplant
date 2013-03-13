@@ -3,7 +3,9 @@ import Literals;
 
 root : ctree EOF;
 ctree : '(' snapshot ',' (ctree ( ',' ctree )* ',')? snapshot ')';
-snapshot : stack heap;
+snapshot : stack heap; 
+
+// snapshot is current "frame" (top of stack + heap reachable from top of stack)
 
 stack : '<' varDef (',' varDef)* '>';
 varDef : Identifier '->' value; 
@@ -16,4 +18,3 @@ object : '{' (fieldDef (',' fieldDef )*)? '}';
 fieldDef : Identifier ':' value;
 
 value : Address | String | Null;
- 
