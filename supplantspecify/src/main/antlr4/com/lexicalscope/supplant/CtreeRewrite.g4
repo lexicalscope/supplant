@@ -1,20 +1,20 @@
 grammar CtreeRewrite;
-import Literals;
+import Literals, CtreeCom;
 
 root: rewrite (',' rewrite)*  EOF;
-rewrite: Location (heaprw | ctreerw);
+rewrite: Location (heaprw | ctree);
 
-ctreerw : '(' snapshot ',' (ctree ( ',' ctree )* ',')? snapshot ')';
-heapvalue : 
+node : ctree | Location;
+heapValue : object | String | SymIdentifier;
+value : SymIdentifier | String | Null;
+memDef : identifiermatch '->' heapValue;
 
 heaprw : '[' identifiermatch memrw ']';
-
-identifiermatch : Identifier | SymIdentifier;
-
 memrw: directfieldrw | objectrw;
 
-directfieldrw: pathexpression '->' valuerw;
+directfieldrw: pathexpression '->' value;
 pathexpression: '.' Identifier ('.' Identifier)*;
-valuerw: String | identifiermatch;
 
 objectrw: '->' (SymIdentifier | '{'  '}');
+
+identifiermatch : Identifier | SymIdentifier;
