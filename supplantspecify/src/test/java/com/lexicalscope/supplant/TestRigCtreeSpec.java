@@ -11,15 +11,15 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class TestRigCtreeMatch extends AbstractRig {
+public class TestRigCtreeSpec extends AbstractRig {
    @Parameters(name = "{index}: specification({0})")
    public static List<Object[]> loadFiles() {
-      return findFiles("src/test/resources/com/lexicalscope/supplant/supplantctree", ".ctreem");
+      return findFiles("src/test/resources/com/lexicalscope/supplant/supplantctree", ".ctreesp");
    }
 
    @Override
    public void canParse() throws IOException {
-      parse(content).ctreematch();
+      parse(content).ctreespec();
    }
 
    public static CtreeSpecParser parse(final String example) {

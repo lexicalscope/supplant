@@ -1,7 +1,6 @@
 grammar CtreeMatch;
 import Literals;
 
-root: ctreematch EOF;
 ctreematch: (nodematch (',' nodematch)*)  ;
 nodematch: Location? ('__' | '_' | '€' | '(' snapshotmatch ',' (ctreematch ',')? snapshotmatch')');
 snapshotmatch: Location? stackmatch? heapmatch; 

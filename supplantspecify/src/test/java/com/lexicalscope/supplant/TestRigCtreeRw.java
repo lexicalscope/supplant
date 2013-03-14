@@ -22,9 +22,9 @@ public class TestRigCtreeRw extends AbstractRig {
       parse(content).rewriteseq();
    }
 
-   public static CtreeRewriteParser parse(final String example) {
-      final CtreeRewriteLexer lexer = new CtreeRewriteLexer(new ANTLRInputStream(example));
-      final CtreeRewriteParser parser = new CtreeRewriteParser(new CommonTokenStream(lexer));
+   public static CtreeSpecParser parse(final String example) {
+      final CtreeSpecLexer lexer = new CtreeSpecLexer(new ANTLRInputStream(example));
+      final CtreeSpecParser parser = new CtreeSpecParser(new CommonTokenStream(lexer));
       parser.addErrorListener(new ConsoleErrorListener());
       return parser;
    }

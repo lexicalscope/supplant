@@ -1,7 +1,7 @@
 grammar CtreeRewrite;
 import Literals, CtreeCom;
 
-rewriteseq: rewrite (',' rewrite)*  EOF;
+rewriteseq: rewrite (',' rewrite)*;
 rewrite: Location (heaprw | ctree[true]);
 
 heaprw : '[' symidentifier memrw ']';

@@ -1,0 +1,5 @@
+old:(@call [this->{listener:null}, x->$message], @propagate €, [])
+new:([this->{listener:$listener}], _, [])
+ ~
+	@call [this.listener->$listener], 
+	@propagate (<meth->"notify">[this->$listener, x->$message],<meth->"notify">[])
