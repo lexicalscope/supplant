@@ -1,0 +1,7 @@
+protocol([<this>=={type=="EventBroadcast"}])
+(
+     @c <meth=="send">[<x>:a, <this>.listener=null],<meth=="send">[<x>:a, <this>.listener:l] 
+  => _ , (_ => (<meth=="delv">[<this>==]) => _)
+  => @r [*]
+)
+(@r.old [<w>.content="newcontent"])

@@ -19,7 +19,7 @@ public class TestRigCtreeRw extends AbstractRig {
 
    @Override
    public void canParse() throws IOException {
-      parse(content).root();
+      parse(content).rewriteseq();
    }
 
    public static CtreeRewriteParser parse(final String example) {
